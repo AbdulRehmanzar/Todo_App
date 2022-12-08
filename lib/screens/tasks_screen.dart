@@ -1,15 +1,11 @@
+import 'package:app/models/task.dart';
+import 'package:app/models/task_data.dart';
 import 'package:app/screens/add_task_screen.dart';
 import 'package:app/widgets/tasks_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class TasksScreen extends StatefulWidget {
-  const TasksScreen({Key? key}) : super(key: key);
-
-  @override
-  State<TasksScreen> createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
+class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,9 +15,17 @@ class _TasksScreenState extends State<TasksScreen> {
             isScrollControlled: true,
             context: context,
             builder: (context) => SingleChildScrollView(
-                child: Container(
-                  padding: EdgeInsets.only(bottom:MediaQuery.of(context).viewInsets.bottom),
-                  child: const AddTaskScreen())),
+              child: Container(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: AddTaskScreen((newTaskTile) {
+                  // setState(() {
+                  //   tasks.add(Task(name: newTaskTile));
+                  //   Navigator.pop(context);
+                  // });
+                }),
+              ),
+            ),
           );
         },
         // ignore: sort_child_properties_last
@@ -61,39 +65,43 @@ class _TasksScreenState extends State<TasksScreen> {
       body: Container(
         padding:
             const EdgeInsets.only(top: 60, left: 20, right: 20, bottom: 80),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(children: [
-            const Icon(
-              Icons.playlist_add_check,
-              size: 40,
-              color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(children: const [
+              Icon(
+                Icons.playlist_add_check,
+                size: 40,
+                color: Colors.white,
+              ),
+              SizedBox(width: 20),
+              Text(
+                "Daily Schedule",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold),
+              ),
+            ]),
+            Text(
+              '${Provider.of<TaskData>(context).tasks.length} Tasks',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
             ),
-            const SizedBox(width: 20),
-            const Text(
-              "Daily Schedule",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold),
-            ),
-          ]),
-          const Text(
-            "3 Tasks",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),
-          ),
-          const SizedBox(height: 30),
-          Container(
+            const SizedBox(height: 30),
+            Container(
               height: 550,
               decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(
                     Radius.circular(20),
                   )),
-              child: const TasksList())
-        ]),
+              child: TasksList(),
+            ),
+          ],
+        ),
       ),
     );
   }
