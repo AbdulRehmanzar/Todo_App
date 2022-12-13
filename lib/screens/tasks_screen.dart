@@ -30,7 +30,7 @@ class TasksScreen extends StatelessWidget {
         },
         // ignore: sort_child_properties_last
         child: const Icon(
-          Icons.save,
+          Icons.add_box_outlined,
           color: Colors.white,
         ),
         backgroundColor: Colors.teal[800],
@@ -47,14 +47,14 @@ class TasksScreen extends StatelessWidget {
             IconButton(
               icon: const Icon(
                 Icons.edit_note_sharp,
-                color: Colors.white,
+                color: Colors.transparent,
               ),
               onPressed: () {},
             ),
             IconButton(
               icon: const Icon(
                 Icons.delete_sharp,
-                color: Colors.white,
+                color: Colors.transparent,
               ),
               onPressed: () {},
             ),
@@ -80,7 +80,7 @@ class TasksScreen extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 40,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold,),
               ),
             ]),
             Text(
